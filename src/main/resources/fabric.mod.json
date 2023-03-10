@@ -1,29 +1,25 @@
 {
-	"schemaVersion": 1,
-	"id": "glowing-torchflower",
-	"version": "${version}",
-	"name": "Glowing Torchflower",
-	"description": "Make Torchflower glow",
-	"authors": [
-		"NikitaCartes"
-	],
-	"contact": {
-		"sources": "https://github.com/NikitaCartes/Glowing-Torchflower"
-	},
-	"license": "MIT",
-	"icon": "assets/glowing-torchflower/icon.png",
-	"environment": "*",
-	"entrypoints": {
-		"main": [
-			"xyz.nikitacartes.glowingtorchflower.GlowingTorchflower"
-		]
-	},
-	"mixins": [
-		"glowing-torchflower.mixins.json"
-	],
-	"depends": {
-		"fabricloader": ">=0.14.14",
-		"minecraft": ">=1.19.4-alpha.23.7.a",
-		"java": ">=17"
-	}
+  "schemaVersion": 1,
+  "id": "glowing-torchflower",
+  "version": "${version}",
+  "name": "Glowing Torchflower",
+  "description": "Make Torchflower glow",
+  "authors": [
+    "NikitaCartes"
+  ],
+  "contact": {
+    "homepage": "https://github.com/NikitaCartes/Glowing-Torchflower",
+    "sources": "https://github.com/NikitaCartes/Glowing-Torchflower"
+  },
+  "license": "MIT",
+  "icon": "assets/glowing-torchflower/icon.png",
+  "environment": "*",
+  "mixins": [
+    "glowing-torchflower.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.14.14",
+    "minecraft": ">=1.19.4-alpha.23.7.a",
+    "java": ">=17"
+  }
 }
