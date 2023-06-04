@@ -1,5 +1,6 @@
 package xyz.nikitacartes.glowingtorchflower.mixin;
 
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.TorchflowerCropBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -20,13 +21,14 @@ public class BlocksMixin {
         return properties.lightLevel(blockState -> 12);
     }
 
-    @ModifyArg(method = "<clinit>",
+    @ModifyArg(method = "flowerPot(Lnet/minecraft/world/level/block/Block;[Lnet/minecraft/world/flag/FeatureFlag;)Lnet/minecraft/world/level/block/FlowerPotBlock;",
             at = @At(value = "INVOKE",
                     target = "Lnet/minecraft/world/level/block/FlowerPotBlock;<init>(Lnet/minecraft/world/level/block/Block;Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V",
-                    ordinal = 0),
-            slice = @Slice(from = @At(value = "CONSTANT", args = "stringValue=potted_torchflower")))
-    private static BlockBehaviour.Properties modifyPottedTorchflower(BlockBehaviour.Properties properties) {
-        return properties.lightLevel(blockState -> 14);
+                    ordinal = 0))
+    private static BlockBehaviour.Properties modifyPottedTorchflower(Block block, BlockBehaviour.Properties properties) {
+        if (block.getDescriptionId().equals("block.minecraft.torchflower"))
+            return properties.lightLevel(blockState -> 14);
+        return properties;
     }
 
     @ModifyArg(method = "<clinit>",
