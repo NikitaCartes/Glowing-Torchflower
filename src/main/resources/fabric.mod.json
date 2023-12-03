@@ -9,7 +9,8 @@
   ],
   "contact": {
     "homepage": "https://github.com/NikitaCartes/Glowing-Torchflower",
-    "sources": "https://github.com/NikitaCartes/Glowing-Torchflower"
+    "sources": "https://github.com/NikitaCartes/Glowing-Torchflower",
+    "issues": "https://github.com/NikitaCartes/Glowing-Torchflower/issues"
   },
   "license": "MIT",
   "icon": "assets/glowing-torchflower/icon.png",
@@ -18,8 +19,8 @@
     "glowing-torchflower.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=0.14.19",
-    "minecraft": ">=1.20-",
+    "fabricloader": ">=0.15.0",
+    "minecraft": ">=1.20.3-",
     "java": ">=17"
   }
 }

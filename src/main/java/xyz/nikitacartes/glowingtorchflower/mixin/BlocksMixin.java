@@ -1,9 +1,9 @@
 package xyz.nikitacartes.glowingtorchflower.mixin;
 
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.TorchflowerCropBlock;
-import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.TorchflowerBlock;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
@@ -14,31 +14,31 @@ public class BlocksMixin {
 
     @ModifyArg(method = "<clinit>",
             at = @At(value = "INVOKE",
-                    target = "Lnet/minecraft/world/level/block/FlowerBlock;<init>(Lnet/minecraft/world/effect/MobEffect;ILnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V",
+                    target = "Lnet/minecraft/block/FlowerBlock;<init>(Lnet/minecraft/entity/effect/StatusEffect;ILnet/minecraft/block/AbstractBlock$Settings;)V",
                     ordinal = 0),
             slice = @Slice(from = @At(value = "CONSTANT", args = "stringValue=torchflower")))
-    private static BlockBehaviour.Properties modifyTorchflower(BlockBehaviour.Properties properties) {
-        return properties.lightLevel(blockState -> 12);
+    private static AbstractBlock.Settings modifyTorchflower(AbstractBlock.Settings properties) {
+        return properties.luminance(blockState -> 12);
     }
 
-    @ModifyArg(method = "flowerPot(Lnet/minecraft/world/level/block/Block;[Lnet/minecraft/world/flag/FeatureFlag;)Lnet/minecraft/world/level/block/FlowerPotBlock;",
+    @ModifyArg(method = "createFlowerPotBlock(Lnet/minecraft/block/Block;)Lnet/minecraft/block/Block;",
             at = @At(value = "INVOKE",
-                    target = "Lnet/minecraft/world/level/block/FlowerPotBlock;<init>(Lnet/minecraft/world/level/block/Block;Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V",
+                    target = "Lnet/minecraft/block/FlowerPotBlock;<init>(Lnet/minecraft/block/Block;Lnet/minecraft/block/AbstractBlock$Settings;)V",
                     ordinal = 0))
-    private static BlockBehaviour.Properties modifyPottedTorchflower(Block block, BlockBehaviour.Properties properties) {
-        if (block.getDescriptionId().equals("block.minecraft.torchflower"))
-            return properties.lightLevel(blockState -> 14);
+    private static AbstractBlock.Settings modifyPottedTorchflower(Block block, AbstractBlock.Settings properties) {
+        if (block.getTranslationKey().equals("block.minecraft.torchflower"))
+            return properties.luminance(blockState -> 14);
         return properties;
     }
 
     @ModifyArg(method = "<clinit>",
             at = @At(value = "INVOKE",
-                    target = "Lnet/minecraft/world/level/block/TorchflowerCropBlock;<init>(Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V",
+                    target = "Lnet/minecraft/block/TorchflowerBlock;<init>(Lnet/minecraft/block/AbstractBlock$Settings;)V",
                     ordinal = 0),
             slice = @Slice(from = @At(value = "CONSTANT", args = "stringValue=torchflower_crop")))
-    private static BlockBehaviour.Properties modifyTorchflowerCrop(BlockBehaviour.Properties properties) {
+    private static AbstractBlock.Settings modifyTorchflowerCrop(AbstractBlock.Settings properties) {
 
-        return properties.lightLevel(blockState -> switch (blockState.getValue(TorchflowerCropBlock.AGE)) {
+        return properties.luminance(blockState -> switch (blockState.get(TorchflowerBlock.AGE)) {
             case 0 -> 3;
             case 1 -> 7;
             default -> 12;
