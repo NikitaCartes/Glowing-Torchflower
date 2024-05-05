@@ -14,7 +14,7 @@ public class BlocksMixin {
 
     @ModifyArg(method = "<clinit>",
             at = @At(value = "INVOKE",
-                    target = "Lnet/minecraft/block/FlowerBlock;<init>(Lnet/minecraft/entity/effect/StatusEffect;ILnet/minecraft/block/AbstractBlock$Settings;)V",
+                    target = "Lnet/minecraft/block/FlowerBlock;<init>(Lnet/minecraft/registry/entry/RegistryEntry;FLnet/minecraft/block/AbstractBlock$Settings;)V",
                     ordinal = 0),
             slice = @Slice(from = @At(value = "CONSTANT", args = "stringValue=torchflower")))
     private static AbstractBlock.Settings modifyTorchflower(AbstractBlock.Settings properties) {
