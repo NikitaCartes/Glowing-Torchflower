@@ -1,5 +1,5 @@
 plugins {
-    id "fabric-loom" version "1.1-SNAPSHOT"
+    id "fabric-loom" version "1.6-SNAPSHOT"
 }
 
 repositories {}
@@ -7,8 +7,8 @@ repositories {}
 archivesBaseName = "${project.mod_id}-mc${project.minecraft_version}"
 version = "${project.mod_version}"
 
-sourceCompatibility = JavaVersion.VERSION_17
-targetCompatibility = JavaVersion.VERSION_17
+sourceCompatibility = JavaVersion.VERSION_21
+targetCompatibility = JavaVersion.VERSION_21
 
 
 dependencies {
@@ -22,13 +22,13 @@ dependencies {
 
 tasks.withType(JavaCompile).configureEach {
     it.options.encoding = "UTF-8"
-    it.options.release.set(17)
+    it.options.release.set(21)
 }
 
 java {
     withSourcesJar()
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(17))
+        languageVersion.set(JavaLanguageVersion.of(21))
     }
 }
 
