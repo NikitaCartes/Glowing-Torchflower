@@ -20,6 +20,8 @@ dependencies {
 
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
+    include(implementation(annotationProcessor("io.github.llamalad7:mixinextras-fabric:${project.mixin_extra_version}")))
+
     // Hocon config
     include implementation("org.spongepowered:configurate-core:${hocon_version}")
     include implementation("org.spongepowered:configurate-hocon:${hocon_version}")
@@ -59,11 +61,11 @@ modrinth {
     token.set(System.getenv("MODRINTH_TOKEN"))
     projectId.set("1S4LxcvL")
     versionNumber.set("${project.version}")
-    versionName = "[1.20.3 - 1.21.1] ${project.version}"
+    versionName = "[1.20 - 1.20.2] ${project.version}"
     versionType = "release"
     changelog.set("Release notes:\nhttps://github.com/NikitaCartes/Glowing-Torchflower/releases/tag/${project.version}")
     uploadFile = remapJar
-    gameVersions.addAll("1.20.3", "1.20.4", "1.20.5", "1.20.6", "1.21", "1.21.1")
+    gameVersions.addAll("1.20", "1.20.1", "1.20.2")
     loaders = ["fabric", "quilt"]
 }
 
@@ -78,17 +80,14 @@ curseforge {
         addGameVersion("Fabric")
         addGameVersion("Quilt")
 
-        addGameVersion("Java 21")
+        addGameVersion("Java 17")
 
-        addGameVersion("1.20.3")
-        addGameVersion("1.20.4")
-        addGameVersion("1.20.5")
-        addGameVersion("1.20.6")
-        addGameVersion("1.21")
-        addGameVersion("1.21.1")
+        addGameVersion("1.20")
+        addGameVersion("1.20.1")
+        addGameVersion("1.20.2")
 
         mainArtifact(remapJar) {
-            displayName = "[1.20.3 - 1.21.1] ${project.version}"
+            displayName = "[1.20 - 1.20.2] ${project.version}"
         }
     }
     options {
