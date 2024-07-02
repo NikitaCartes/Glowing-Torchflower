@@ -2,6 +2,7 @@ package xyz.nikitacartes.glowingtorchflower.mixin;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.TorchflowerBlock;
 import org.spongepowered.asm.mixin.Mixin;
@@ -28,15 +29,18 @@ public class BlocksMixin {
         return properties.luminance(blockState -> config.torchflowerBrightness);
     }
 
-    @ModifyExpressionValue(method = "<clinit>",
+    @ModifyExpressionValue(method = "createFlowerPotBlock(Lnet/minecraft/block/Block;)Lnet/minecraft/block/Block;",
             at = @At(value = "INVOKE",
-                    target = "Lnet/minecraft/block/Blocks;createFlowerPotSettings()Lnet/minecraft/block/AbstractBlock$Settings;",
-                    ordinal = 1))
-    private static AbstractBlock.Settings modifyPottedTorchflower(AbstractBlock.Settings properties) {
-        if (config == null) {
-            config = MainConfigV1.load();
+                    target = "Lnet/minecraft/block/AbstractBlock$Settings;create()Lnet/minecraft/block/AbstractBlock$Settings;",
+                    ordinal = 0))
+    private static AbstractBlock.Settings modifyPottedTorchflower(AbstractBlock.Settings properties, Block block) {
+        if (block == Blocks.TORCHFLOWER) {
+            if (config == null) {
+                config = MainConfigV1.load();
+            }
+            return properties.luminance(blockState -> config.torchflowerPotBrightness);
         }
-        return properties.luminance(blockState -> config.torchflowerPotBrightness);
+        return properties;
     }
 
     @ModifyExpressionValue(method = "<clinit>",
