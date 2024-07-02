@@ -18,6 +18,8 @@ dependencies {
 
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
+    include(implementation(annotationProcessor("io.github.llamalad7:mixinextras-fabric:${project.mixin_extra_version}")))
+
 }
 
 tasks.withType(JavaCompile).configureEach {

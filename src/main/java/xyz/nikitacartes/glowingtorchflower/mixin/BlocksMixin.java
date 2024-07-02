@@ -21,7 +21,7 @@ public class BlocksMixin {
         return properties.luminance(blockState -> 12);
     }
 
-    @ModifyExpressionValue(method = "createFlowerPotBlock(Lnet/minecraft/block/Block;)Lnet/minecraft/block/Block;",
+    @ModifyExpressionValue(method = "createFlowerPotBlock(Lnet/minecraft/block/Block;[Lnet/minecraft/resource/featuretoggle/FeatureFlag;)Lnet/minecraft/block/FlowerPotBlock;",
             at = @At(value = "INVOKE",
                     target = "Lnet/minecraft/block/AbstractBlock$Settings;create()Lnet/minecraft/block/AbstractBlock$Settings;",
                     ordinal = 0))
