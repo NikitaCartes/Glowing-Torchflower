@@ -6,6 +6,7 @@ Works better when installed on both the server and the client
 
 [Discord](https://discord.gg/UY4nhvUzaK)
 
+Also check out [Glowing Eyeblossom](https://github.com/NikitaCartes/Glowing-Eyeblossom) mod!
 
 ### Ligth level
 - Torchflower: 12

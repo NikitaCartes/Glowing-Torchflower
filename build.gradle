@@ -59,7 +59,7 @@ modrinth {
     token.set(System.getenv("MODRINTH_TOKEN"))
     projectId.set("1S4LxcvL")
     versionNumber.set("${project.version}")
-    versionName = "[1.21.2, 1.21.3] ${project.version}"
+    versionName = "[1.21.2 - 1.21.4] ${project.version}"
     versionType = "release"
     changelog.set("Release notes:\nhttps://github.com/NikitaCartes/Glowing-Torchflower/releases/tag/${project.version}")
     uploadFile = remapJar
@@ -84,7 +84,7 @@ curseforge {
         addGameVersion("1.21.3")
 
         mainArtifact(remapJar) {
-            displayName = "[1.21.2, 1.21.3] ${project.version}"
+            displayName = "[1.21.2 - 1.21.4] ${project.version}"
         }
     }
     options {
