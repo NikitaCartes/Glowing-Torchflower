@@ -15,12 +15,13 @@ import java.util.stream.Collectors;
 
 public abstract class ConfigTemplate {
     private transient final Pattern pattern = Pattern.compile("^[^$\"{}\\[\\]:=,+#`^?!@*&\\\\\\s/]+");
-    transient final String configPath;
+    transient final String configFilePath;
+    transient final String configResourcePath = "xyz/nikitacartes/glowingtorchflower/config/";
     public static Path gameDirectory = FabricLoader.getInstance().getGameDir();
     private static String modName = "GlowingTorchflower";
 
-    ConfigTemplate(String configPath) {
-        this.configPath = configPath;
+    ConfigTemplate(String configFilePath) {
+        this.configFilePath = configFilePath;
     }
 
     public static <Config extends ConfigTemplate> Config loadConfig(Class<Config> configClass, String configPath) {
@@ -30,7 +31,8 @@ public abstract class ConfigTemplate {
             try {
                 return loader.load().get(configClass);
             } catch (ConfigurateException e) {
-                throw new RuntimeException("[" + modName + "] Failed to load config file", e);
+                System.err.println("[" + modName + "] Failed to load config file" + e);
+                return null;
             }
         } else {
             return null;
@@ -46,7 +48,7 @@ public abstract class ConfigTemplate {
                 System.err.println("Failed to create config directory" + e);
             }
         }
-        Path path = gameDirectory.resolve("config/" + modName + "/" + configPath);
+        Path path = gameDirectory.resolve("config/" + modName + "/" + configFilePath);
         try {
             Files.writeString(path, handleTemplate());
         } catch (IOException e) {

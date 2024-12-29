@@ -39,7 +39,7 @@ public class MainConfigV1 extends ConfigTemplate {
         configValues.put("torchflowerStage1Brightness", wrapIfNecessary(torchflowerStage1Brightness));
         configValues.put("torchflowerStage2Brightness", wrapIfNecessary(torchflowerStage2Brightness));
         configValues.put("configVersion", wrapIfNecessary(configVersion));
-        String configTemplate = Resources.toString(getResource("config/" + configPath), UTF_8);
+        String configTemplate = Resources.toString(getResource(configResourcePath + configFilePath), UTF_8);
         return new StringSubstitutor(configValues).replace(configTemplate);
     }
 }

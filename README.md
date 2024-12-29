@@ -16,7 +16,7 @@ Also check out [Glowing Eyeblossom](https://github.com/NikitaCartes/Glowing-Eyeb
 - Torchflower crop, big: 12
 
 ### Config
-You can change the light level of the Eyeblossom in the config file.  
+You can change the light level of the Torchflower in the config file.  
 The config file is located in the `<game directory>/config/GlowingTorchflower/main.conf`.
 
 ![screenshot.png](screenshot.png)
