@@ -1,7 +1,6 @@
 plugins {
     id ("net.fabricmc.fabric-loom") version "1.16-SNAPSHOT"
-    id ("com.modrinth.minotaur") version "2.+"
-    id ("com.matthewprenger.cursegradle") version "1.4.0"
+    id("me.modmuss50.mod-publish-plugin") version "0.8.4"
 }
 
 repositories {}
@@ -57,44 +56,33 @@ processResources {
     }
 }
 
-modrinth {
-    token.set(System.getenv("MODRINTH_TOKEN"))
-    projectId.set("1S4LxcvL")
-    versionNumber.set("${project.version}")
-    versionName = "[26.1] ${project.version}"
-    versionType = "release"
-    changelog.set("Release notes:\nhttps://github.com/NikitaCartes/Glowing-Torchflower/releases/tag/${project.version}")
-    uploadFile = jar
-    gameVersions.addAll("26.1")
-    loaders = ["fabric"]
-}
+publishMods {
+    def modrinthToken = System.getenv("MODRINTH_TOKEN") ?: ""
+    def curseforgeToken = System.getenv("CURSEFORGE_TOKEN") ?: ""
 
-curseforge {
-    apiKey = System.getenv("CURSEFORGE_TOKEN") ?: ""
-    project {
-        id = "827288"
-        changelogType = "markdown"
-        changelog = "Release notes:\nhttps://github.com/NikitaCartes/Glowing-Torchflower/releases/tag/${project.version}"
-        releaseType = "release"
+    file = tasks.jar.archiveFile
+    dryRun = modrinthToken.isEmpty() || curseforgeToken.isEmpty()
 
-        addGameVersion("Fabric")
+    displayName = "[26.1] ${project.version}"
+    version = "${project.version}"
 
-        addGameVersion("Java 25")
+    changelog = "Release notes:\nhttps://github.com/NikitaCartes/Glowing-Torchflower/releases/tag/${project.version}"
+    type = STABLE
+    modLoaders.add("fabric")
 
-        addGameVersion("26.1")
+    def targets = ["26.1"]
 
-        mainArtifact(jar) {
-            displayName = "[26.1] ${project.version}"
-        }
+    modrinth {
+        projectId = "1S4LxcvL"
+        accessToken = modrinthToken
+
+        targets.forEach(minecraftVersions::add)
     }
-    options {
-        javaVersionAutoDetect = false
-        javaIntegration = false
-        forgeGradleIntegration = false
-    }
-}
 
-tasks.register("publish") {
-    dependsOn("modrinth")
-    dependsOn("curseforge")
+    curseforge {
+        projectId = "827288"
+        accessToken = curseforgeToken
+
+        targets.forEach(minecraftVersions::add)
+    }
 }
