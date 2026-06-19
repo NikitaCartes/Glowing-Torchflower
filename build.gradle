@@ -1,5 +1,5 @@
 plugins {
-    id ("net.fabricmc.fabric-loom") version "1.16-SNAPSHOT"
+    id ("net.fabricmc.fabric-loom") version "1.17-SNAPSHOT"
     id("me.modmuss50.mod-publish-plugin") version "0.8.4"
 }
 
@@ -63,14 +63,14 @@ publishMods {
     file = tasks.jar.archiveFile
     dryRun = modrinthToken.isEmpty() || curseforgeToken.isEmpty()
 
-    displayName = "[26.1] ${project.version}"
+    displayName = "[26.2] ${project.version}"
     version = "${project.version}"
 
     changelog = "Release notes:\nhttps://github.com/NikitaCartes/Glowing-Torchflower/releases/tag/${project.version}"
     type = STABLE
     modLoaders.add("fabric")
 
-    def targets = ["26.1"]
+    def targets = ["26.2"]
 
     modrinth {
         projectId = "1S4LxcvL"
