@@ -59,9 +59,10 @@ processResources {
 publishMods {
     def modrinthToken = System.getenv("MODRINTH_TOKEN") ?: ""
     def curseforgeToken = System.getenv("CURSEFORGE_TOKEN") ?: ""
+    def githubToken = System.getenv("GITHUB_TOKEN") ?: ""
 
     file = tasks.jar.archiveFile
-    dryRun = modrinthToken.isEmpty() || curseforgeToken.isEmpty()
+    dryRun = modrinthToken.isEmpty() || curseforgeToken.isEmpty() || githubToken.isEmpty()
 
     displayName = "[26.2] ${project.version}"
     version = "${project.version}"
@@ -85,4 +86,17 @@ publishMods {
 
         targets.forEach(minecraftVersions::add)
     }
+
+    github {
+        accessToken = githubToken
+        repository = "NikitaCartes/Glowing-Torchflower"
+        changelog = rootProject.file("RELEASE_NOTE.md").readText()
+        commitish = "fabric-26.1"
+        tagName = "${project.version}"
+    }
+}
+
+tasks.register("collectJars") {
+    group = "build"
+    dependsOn "build"
 }
