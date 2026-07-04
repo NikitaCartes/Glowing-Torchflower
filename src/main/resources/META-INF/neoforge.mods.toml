@@ -1,0 +1,32 @@
+modLoader = "javafml"
+loaderVersion = "[1,)"
+license = "MIT"
+issueTrackerURL = "https://github.com/NikitaCartes/Glowing-Torchflower/issues"
+
+[[mods]]
+modId = "glowingtorchflower"
+version = "${version}"
+displayName = "Glowing Torchflower"
+displayURL = "https://github.com/NikitaCartes/Glowing-Torchflower"
+authors = "NikitaCartes"
+description = '''
+Make Torchflower glow
+'''
+logoFile = "assets/glowing-torchflower/icon.png"
+
+[[mixins]]
+config = "glowing-torchflower.mixins.json"
+
+[[dependencies.glowingtorchflower]]
+modId = "neoforge"
+type = "required"
+versionRange = "[${neoforge_version},)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.glowingtorchflower]]
+modId = "minecraft"
+type = "required"
+versionRange = "${supported_minecraft_version}"
+ordering = "NONE"
+side = "BOTH"

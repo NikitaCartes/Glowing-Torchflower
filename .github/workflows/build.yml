@@ -32,7 +32,7 @@ jobs:
             ${{ runner.os }}-glowing-torchflower-
 
       - name: Build
-        run: ./gradlew build
+        run: ./gradlew build collectJars
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
