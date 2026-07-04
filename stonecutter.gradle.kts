@@ -29,7 +29,7 @@ publishMods {
     github {
         accessToken = githubToken
         repository = "NikitaCartes/Glowing-Torchflower"
-        commitish = "fabric-26.1"
+        commitish = "stonecutter"
         tagName = modVersion
         allowEmptyFiles = true
     }
