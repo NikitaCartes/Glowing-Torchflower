@@ -72,7 +72,6 @@ tasks.shadowJar {
 tasks.jar {
     from("LICENSE")
     dependsOn(tasks.shadowJar)
-    // Pull in the shaded (relocated) classes + resources, and drop the un-relocated main output.
     from(zipTree(tasks.shadowJar.get().archiveFile)) {
         exclude("META-INF/MANIFEST.MF", "META-INF/*.SF", "META-INF/*.DSA", "META-INF/*.RSA")
     }

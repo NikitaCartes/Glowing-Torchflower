@@ -1,6 +1,8 @@
 ## Glowing Torchflower
 
-Works better when installed on both the server and the client
+Makes the torchflower emit light at every growth stage, and while potted.
+
+Fabric and NeoForge, Minecraft 26.2+. Works better when installed on both the server and the client.
 
 [CurseForge](https://www.curseforge.com/minecraft/mc-mods/glowing-torchflower), [Modrinth](https://modrinth.com/mod/glowing-torchflower)
 
@@ -8,7 +10,7 @@ Works better when installed on both the server and the client
 
 Also check out [Glowing Eyeblossom](https://github.com/NikitaCartes/Glowing-Eyeblossom) mod!
 
-### Ligth level
+### Light level
 - Torchflower: 12
 - Torchflower in pot: 14
 - Torchflower crop, small: 3

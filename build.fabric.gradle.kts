@@ -1,6 +1,5 @@
 plugins {
     id("java")
-    // The non-remapping Loom plugin: 26.1+ ships Mojang-mapped, so Minecraft/mods are not remapped.
     id("net.fabricmc.fabric-loom") version "1.17-SNAPSHOT"
     id("me.modmuss50.mod-publish-plugin") version "0.8.4"
 }
@@ -28,7 +27,6 @@ dependencies {
     minecraft("com.mojang:minecraft:${property("minecraft_version")}")
     implementation("net.fabricmc:fabric-loader:${property("loader_version")}")
 
-    // Hocon config — jar-in-jar'd via Loom `include`.
     listOf(
         "org.spongepowered:configurate-core:${property("hocon_version")}",
         "org.spongepowered:configurate-hocon:${property("hocon_version")}",
