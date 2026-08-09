@@ -15,8 +15,18 @@ plugins {
 
 stonecutter {
     create(rootProject) {
-        versions("26.2-fabric" to "26.2").buildscript("build.fabric.gradle.kts")
-        versions("26.2-neoforge" to "26.2").buildscript("build.neoforge.gradle.kts")
+        // Obfuscated Fabric
+        listOf("1.19.4", "1.20", "1.21.2").forEach { mc ->
+            versions("$mc-fabric" to mc).buildscript("build.fabric-obf.gradle.kts")
+        }
+        // Deobfuscated Fabric
+        listOf("26.1", "26.2").forEach { mc ->
+            versions("$mc-fabric" to mc).buildscript("build.fabric-deobf.gradle.kts")
+        }
+        // NeoForge
+        listOf("1.21", "1.21.2", "26.1", "26.2").forEach { mc ->
+            versions("$mc-neoforge" to mc).buildscript("build.neoforge.gradle.kts")
+        }
         vcsVersion = "26.2-fabric"
     }
 }

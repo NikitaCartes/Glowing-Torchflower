@@ -15,12 +15,19 @@ repositories {
     maven("https://maven.neoforged.net/releases")
 }
 
-base.archivesName = "${property("mod_id")}-neoforge-mc${property("display_mc")}"
+val javaVersion = property("java_version").toString().toInt()
+
+base.archivesName = "${property("mod_id")}-neoforge-mc${property("minecraft_version")}"
 version = property("mod_version").toString()
 
 java {
     toolchain { languageVersion.set(JavaLanguageVersion.of(25)) }
     withSourcesJar()
+}
+
+tasks.withType<JavaCompile>().configureEach {
+    options.encoding = "UTF-8"
+    options.release.set(javaVersion)
 }
 
 neoForge {
@@ -85,12 +92,13 @@ tasks.jar {
 val modExpansions = mapOf(
     "version" to project.version.toString(),
     "supported_minecraft_version" to property("supported_minecraft_version").toString(),
-    "neoforge_version" to property("neoforge_version").toString()
+    "neoforge_version" to property("neoforge_version").toString(),
+    "java_version" to javaVersion.toString()
 )
 
 tasks.processResources {
     inputs.properties(modExpansions)
-    filesMatching("META-INF/neoforge.mods.toml") { expand(modExpansions) }
+    filesMatching(listOf("META-INF/neoforge.mods.toml", "fabric.mod.json")) { expand(modExpansions) }
 }
 
 tasks.named("createMinecraftArtifacts") {
