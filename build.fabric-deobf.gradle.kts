@@ -1,10 +1,7 @@
-// Minecraft is shipped deobfuscated from 26.1 on: this node uses the no-remap Loom
-// plugin and publishes the plain jar.
-// For 1.21.11 and older, see build.fabric-obf.gradle.kts.
 plugins {
     id("java")
     id("net.fabricmc.fabric-loom") version "1.17-SNAPSHOT"
-    id("me.modmuss50.mod-publish-plugin") version "0.8.4"
+    id("me.modmuss50.mod-publish-plugin") version "2.2.0"
 }
 
 stonecutter {
@@ -66,7 +63,7 @@ tasks.register<Copy>("collectJars") {
     group = "build"
     from(tasks.jar.map { it.archiveFile })
     into(rootProject.layout.buildDirectory.dir("libs"))
-    dependsOn("build")
+    dependsOn("build", rootProject.tasks.named("cleanCollectedJars"))
 }
 
 publishMods {
@@ -92,6 +89,8 @@ publishMods {
         projectId = "827288"
         accessToken = curseforgeToken
         targets.forEach(minecraftVersions::add)
+        client.set(true)
+        server.set(true)
     }
     github {
         accessToken = githubToken

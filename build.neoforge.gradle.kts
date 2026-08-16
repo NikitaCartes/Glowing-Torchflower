@@ -2,7 +2,7 @@ plugins {
     id("java")
     id("net.neoforged.moddev") version "2.0.141"
     id("com.gradleup.shadow") version "9.4.2"
-    id("me.modmuss50.mod-publish-plugin") version "0.8.4"
+    id("me.modmuss50.mod-publish-plugin") version "2.2.0"
 }
 
 stonecutter {
@@ -109,7 +109,7 @@ tasks.register<Copy>("collectJars") {
     group = "build"
     from(tasks.jar.map { it.archiveFile })
     into(rootProject.layout.buildDirectory.dir("libs"))
-    dependsOn("build")
+    dependsOn("build", rootProject.tasks.named("cleanCollectedJars"))
 }
 
 publishMods {
@@ -135,6 +135,8 @@ publishMods {
         projectId = "827288"
         accessToken = curseforgeToken
         targets.forEach(minecraftVersions::add)
+        client.set(true)
+        server.set(true)
     }
     github {
         accessToken = githubToken
