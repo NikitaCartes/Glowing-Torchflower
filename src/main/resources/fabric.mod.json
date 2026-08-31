@@ -19,7 +19,7 @@
     "glowing-torchflower.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=0.15",
+    "fabricloader": ">=${loader_version}",
     "minecraft": "${supported_minecraft_version}",
     "java": ">=${java_version}"
   }

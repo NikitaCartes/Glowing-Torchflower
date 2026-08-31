@@ -82,10 +82,6 @@ tasks.jar {
     from(zipTree(tasks.shadowJar.get().archiveFile)) {
         exclude("META-INF/MANIFEST.MF", "META-INF/*.SF", "META-INF/*.DSA", "META-INF/*.RSA")
     }
-    val mainOutputDirs = sourceSets.main.get().output.files
-    exclude { element ->
-        mainOutputDirs.any { element.file.toPath().startsWith(it.toPath()) }
-    }
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
@@ -98,7 +94,8 @@ val modExpansions = mapOf(
 
 tasks.processResources {
     inputs.properties(modExpansions)
-    filesMatching(listOf("META-INF/neoforge.mods.toml", "fabric.mod.json")) { expand(modExpansions) }
+    filesMatching("META-INF/neoforge.mods.toml") { expand(modExpansions) }
+    exclude("fabric.mod.json")
 }
 
 tasks.named("createMinecraftArtifacts") {

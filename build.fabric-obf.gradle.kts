@@ -52,12 +52,14 @@ tasks.jar {
 val modExpansions = mapOf(
     "version" to project.version.toString(),
     "supported_minecraft_version" to property("supported_minecraft_version").toString(),
-    "java_version" to javaVersion.toString()
+    "java_version" to javaVersion.toString(),
+    "loader_version" to property("loader_version").toString()
 )
 
 tasks.processResources {
     inputs.properties(modExpansions)
     filesMatching("fabric.mod.json") { expand(modExpansions) }
+    exclude("META-INF/neoforge.mods.toml")
 }
 
 tasks.register<Copy>("collectJars") {
@@ -80,7 +82,7 @@ publishMods {
     type = STABLE
     modLoaders.add("fabric")
 
-    val targets = property("supported_versions").toString().split(",")
+    val targets = property("supported_versions").toString().split(",").map { it.trim() }.filter { it.isNotEmpty() }
     modrinth {
         projectId = "1S4LxcvL"
         accessToken = modrinthToken

@@ -26,24 +26,28 @@ public class BlocksMixin {
     // so the slice anchors on a field access instead of a string constant.
     // 1.19.4 still takes a Material in BlockBehaviour.Properties.of.
     //? if >=26.2 {
-    @ModifyExpressionValue(method = "<clinit>",
+    @ModifyExpressionValue(method = "<clinit>", require = 1,
             at = @At(value = "INVOKE",
                     target = "Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;of()Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;",
                     ordinal = 0),
             slice = @Slice(from = @At(value = "FIELD", opcode = Opcodes.GETSTATIC,
-                    target = "Lnet/minecraft/references/BlockItemIds;TORCHFLOWER:Lnet/minecraft/references/BlockItemId;")))
+                    target = "Lnet/minecraft/references/BlockItemIds;TORCHFLOWER:Lnet/minecraft/references/BlockItemId;"),
+                    to = @At(value = "FIELD", opcode = Opcodes.GETSTATIC,
+                    target = "Lnet/minecraft/references/BlockItemIds;POPPY:Lnet/minecraft/references/BlockItemId;")))
     //?} elif >=1.20 {
-    /*@ModifyExpressionValue(method = "<clinit>",
+    /*@ModifyExpressionValue(method = "<clinit>", require = 1,
             at = @At(value = "INVOKE",
                     target = "Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;of()Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;",
                     ordinal = 0),
-            slice = @Slice(from = @At(value = "CONSTANT", args = "stringValue=torchflower")))
+            slice = @Slice(from = @At(value = "CONSTANT", args = "stringValue=torchflower"),
+                    to = @At(value = "CONSTANT", args = "stringValue=poppy")))
     *///?} else {
-    /*@ModifyExpressionValue(method = "<clinit>",
+    /*@ModifyExpressionValue(method = "<clinit>", require = 1,
             at = @At(value = "INVOKE",
                     target = "Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;of(Lnet/minecraft/world/level/material/Material;)Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;",
                     ordinal = 0),
-            slice = @Slice(from = @At(value = "CONSTANT", args = "stringValue=torchflower")))
+            slice = @Slice(from = @At(value = "CONSTANT", args = "stringValue=torchflower"),
+                    to = @At(value = "CONSTANT", args = "stringValue=poppy")))
     *///?}
     private static BlockBehaviour.Properties modifyTorchflower(BlockBehaviour.Properties properties) {
         if (config == null) {
@@ -56,12 +60,14 @@ public class BlocksMixin {
     // injection filters on the potted block. From 1.21.2 on the pot properties come from
     // Blocks.flowerPotProperties() inside <clinit> and a slice picks the torchflower one.
     //? if >=26.2 {
-    @ModifyExpressionValue(method = "<clinit>",
+    @ModifyExpressionValue(method = "<clinit>", require = 1,
             at = @At(value = "INVOKE",
                     target = "Lnet/minecraft/world/level/block/Blocks;flowerPotProperties()Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;",
                     ordinal = 0),
             slice = @Slice(from = @At(value = "FIELD", opcode = Opcodes.GETSTATIC,
-                    target = "Lnet/minecraft/references/BlockIds;POTTED_TORCHFLOWER:Lnet/minecraft/resources/ResourceKey;")))
+                    target = "Lnet/minecraft/references/BlockIds;POTTED_TORCHFLOWER:Lnet/minecraft/resources/ResourceKey;"),
+                    to = @At(value = "FIELD", opcode = Opcodes.GETSTATIC,
+                    target = "Lnet/minecraft/references/BlockIds;POTTED_OAK_SAPLING:Lnet/minecraft/resources/ResourceKey;")))
     private static BlockBehaviour.Properties modifyPottedTorchflower(BlockBehaviour.Properties properties) {
         if (config == null) {
             config = MainConfigV1.load();
@@ -69,11 +75,12 @@ public class BlocksMixin {
         return properties.lightLevel(blockState -> config.torchflowerPotBrightness);
     }
     //?} elif >=1.21.2 {
-    /*@ModifyExpressionValue(method = "<clinit>",
+    /*@ModifyExpressionValue(method = "<clinit>", require = 1,
             at = @At(value = "INVOKE",
                     target = "Lnet/minecraft/world/level/block/Blocks;flowerPotProperties()Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;",
                     ordinal = 0),
-            slice = @Slice(from = @At(value = "CONSTANT", args = "stringValue=potted_torchflower")))
+            slice = @Slice(from = @At(value = "CONSTANT", args = "stringValue=potted_torchflower"),
+                    to = @At(value = "CONSTANT", args = "stringValue=potted_oak_sapling")))
     private static BlockBehaviour.Properties modifyPottedTorchflower(BlockBehaviour.Properties properties) {
         if (config == null) {
             config = MainConfigV1.load();
@@ -81,7 +88,7 @@ public class BlocksMixin {
         return properties.lightLevel(blockState -> config.torchflowerPotBrightness);
     }
     *///?} elif >=1.20 {
-    /*@ModifyExpressionValue(method = "flowerPot",
+    /*@ModifyExpressionValue(method = "flowerPot", require = 1,
             at = @At(value = "INVOKE",
                     target = "Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;of()Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;",
                     ordinal = 0))
@@ -95,11 +102,12 @@ public class BlocksMixin {
         return properties.lightLevel(blockState -> config.torchflowerPotBrightness);
     }
     *///?} else {
-    /*@ModifyExpressionValue(method = "<clinit>",
+    /*@ModifyExpressionValue(method = "<clinit>", require = 1,
             at = @At(value = "INVOKE",
                     target = "Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;of(Lnet/minecraft/world/level/material/Material;)Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;",
                     ordinal = 0),
-            slice = @Slice(from = @At(value = "CONSTANT", args = "stringValue=potted_torchflower")))
+            slice = @Slice(from = @At(value = "CONSTANT", args = "stringValue=potted_torchflower"),
+                    to = @At(value = "CONSTANT", args = "stringValue=potted_oak_sapling")))
     private static BlockBehaviour.Properties modifyPottedTorchflower(BlockBehaviour.Properties properties) {
         if (config == null) {
             config = MainConfigV1.load();
@@ -109,33 +117,40 @@ public class BlocksMixin {
     *///?}
 
     //? if >=26.2 {
-    @ModifyExpressionValue(method = "<clinit>",
+    @ModifyExpressionValue(method = "<clinit>", require = 1,
             at = @At(value = "INVOKE",
                     target = "Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;of()Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;",
                     ordinal = 0),
             slice = @Slice(from = @At(value = "FIELD", opcode = Opcodes.GETSTATIC,
-                    target = "Lnet/minecraft/references/BlockItemIds;TORCHFLOWER_CROP:Lnet/minecraft/references/BlockItemId;")))
+                    target = "Lnet/minecraft/references/BlockItemIds;TORCHFLOWER_CROP:Lnet/minecraft/references/BlockItemId;"),
+                    to = @At(value = "FIELD", opcode = Opcodes.GETSTATIC,
+                    target = "Lnet/minecraft/references/BlockItemIds;PITCHER_CROP:Lnet/minecraft/references/BlockItemId;")))
     //?} elif >=1.20 {
-    /*@ModifyExpressionValue(method = "<clinit>",
+    /*@ModifyExpressionValue(method = "<clinit>", require = 1,
             at = @At(value = "INVOKE",
                     target = "Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;of()Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;",
                     ordinal = 0),
-            slice = @Slice(from = @At(value = "CONSTANT", args = "stringValue=torchflower_crop")))
+            slice = @Slice(from = @At(value = "CONSTANT", args = "stringValue=torchflower_crop"),
+                    to = @At(value = "CONSTANT", args = "stringValue=pitcher_crop")))
     *///?} else {
-    /*@ModifyExpressionValue(method = "<clinit>",
+    /*@ModifyExpressionValue(method = "<clinit>", require = 1,
             at = @At(value = "INVOKE",
                     target = "Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;of(Lnet/minecraft/world/level/material/Material;)Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;",
                     ordinal = 0),
-            slice = @Slice(from = @At(value = "CONSTANT", args = "stringValue=torchflower_crop")))
+            slice = @Slice(from = @At(value = "CONSTANT", args = "stringValue=torchflower_crop"),
+                    to = @At(value = "CONSTANT", args = "stringValue=beetroots")))
     *///?}
     private static BlockBehaviour.Properties modifyTorchflowerCrop(BlockBehaviour.Properties properties) {
         if (config == null) {
             config = MainConfigV1.load();
         }
 
+        // 1.19.4: AGE_2 (0..2)
+        // 1.20+:  AGE_1 (0..1)
         return properties.lightLevel(blockState -> switch (blockState.getValue(TorchflowerCropBlock.AGE)) {
             case 0 -> config.torchflowerStage1Brightness;
             case 1 -> config.torchflowerStage2Brightness;
+            case 2 -> config.torchflowerBrightness;
             default -> config.torchflowerBrightness;
         });
     }
